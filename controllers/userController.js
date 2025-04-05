@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const userController = {
     userRegister : async(request,response) =>{
-      try{
+       try{
         const { username , email , password } = request.body;
 
         const userExists = await user.findOne({ email : email});
@@ -15,7 +15,7 @@ const userController = {
  
         const encrypted_password = await bcrypt.hash(password,10);
         const newUser = new user({
-             username,
+             name:username,
              email,
              password: encrypted_password
          });
@@ -24,7 +24,7 @@ const userController = {
  
          return response.status(201).json({ message: 'User created successfully' });
       }catch(error){
-         return response.status(500).json({ message: error.message });
+        return response.status(500).json({ message: error.message });
       }
 
 
